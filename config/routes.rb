@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   resources :ideas, only: [:index, :edit, :update]
 
-  namespace api do
-    namespace v1 do
-      resources :ideas, only[:index, :edit, :update, :delete]
+  namespace :api do
+    namespace :v1 do
+      resources :ideas, only: [:index, :edit, :update, :delete]
     end
   end
 end
