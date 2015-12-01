@@ -1,5 +1,5 @@
 example_id                                  | status  | run_time        |
 ------------------------------------------- | ------- | --------------- |
-./spec/models/idea_spec.rb[1:1]             | pending | 0.00004 seconds |
-./spec/requests/api_v1_ideas_spec.rb[1:1:1] | passed  | 0.03261 seconds |
-./spec/requests/api_v1_ideas_spec.rb[1:1:2] | failed  | 0.03139 seconds |
+./spec/models/idea_spec.rb[1:1]             | pending | 0.00002 seconds |
+./spec/requests/api_v1_ideas_spec.rb[1:1:1] | passed  | 0.01414 seconds |
+./spec/requests/api_v1_ideas_spec.rb[1:1:2] | failed  | 0.06761 seconds |
