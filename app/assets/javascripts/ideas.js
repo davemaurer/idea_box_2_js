@@ -13,12 +13,14 @@ function getIdeas() {
 
 function renderIdea(idea) {
   truncateIdea(idea);
-  var newIdea = $('<div class="col-sm-10 col-sm-centered #ideas" data-id="'
+  var newIdea = $('<div class="#ideas" data-id="'
     + idea.id
     + '"><h4>' + idea.title + '</h4>'
-    + '"><h5>' + idea.body + '</h5>'
+    + '<h5>' + idea.body + '</h5>'
     + ' Quality: '
     + idea.quality
+    + '</div>'
+    + '<br>'
   );
   $('#ideas').append(newIdea)
 }
