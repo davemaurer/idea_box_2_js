@@ -1,5 +1,7 @@
 class Api::V1::IdeasController < ApplicationController
-  def index
+  respond_to :json
 
+  def index
+    respond_with Idea.all
   end
 end

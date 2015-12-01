@@ -14,6 +14,7 @@ gem 'responders'
 gem 'rails_12factor', group: :production
 
 group :development, :test do
+  gem 'pry-rails'
   gem 'rspec-rails'
   gem 'byebug'
   gem 'launchy'

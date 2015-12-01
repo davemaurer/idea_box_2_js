@@ -16,6 +16,10 @@ RSpec.configure do |config|
 
   config.filter_rails_from_backtrace!
 
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
