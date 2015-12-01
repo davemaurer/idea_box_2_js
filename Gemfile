@@ -21,6 +21,7 @@ group :development, :test do
   gem 'launchy'
   gem 'capybara'
   gem 'database_cleaner'
+  gem 'selenium-webdriver'
 end
 
 group :development do

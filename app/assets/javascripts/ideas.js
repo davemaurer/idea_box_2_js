@@ -1,5 +1,6 @@
 $(document).ready(function() {
   getIdeas();
+  createIdea();
 });
 
 function getIdeas() {
@@ -29,4 +30,30 @@ function truncateIdea(idea) {
   if(idea.body.length > 100) {
     idea.body = idea.body.slice(0, 100) + '...';
   }
+}
+
+function createIdea() {
+  $('#create-idea').on('click', function() {
+    var ideaParams = {
+      idea: {
+        title: $('#idea-title').val(),
+        body:  $('#idea-body').val()
+      }
+    };
+
+    $.ajax({
+      type: 'POST',
+      url: '/api/v1/ideas.json',
+      data: ideaParams,
+      success: function(idea) {
+        renderIdea(idea);
+        clearForm();
+      }
+    })
+  })
+}
+
+function clearForm() {
+  $("#idea-title").val('');
+  $("#idea-body").val('');
 }
