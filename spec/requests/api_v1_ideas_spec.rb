@@ -26,7 +26,5 @@ RSpec.describe "The Ideas Controller", type: :request do
       expect(api_response.count).to eq(6)
       expect(Idea.last.body).to eq("this is the fourth idea")
     end
-
-
   end
 end

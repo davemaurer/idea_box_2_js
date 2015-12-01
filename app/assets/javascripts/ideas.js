@@ -30,3 +30,7 @@ function truncateIdea(idea) {
     idea.body = idea.body.slice(0, 100) + '...';
   }
 }
+
+function createIdea() {
+
+}
