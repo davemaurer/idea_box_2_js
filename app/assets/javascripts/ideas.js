@@ -15,13 +15,8 @@ function getIdeas() {
 function renderIdea(idea) {
   truncateIdea(idea);
   var newIdea = $('<div class="#ideas" data-id="'
-    + idea.id
-    + '"><h4>' + idea.title + '</h4>'
-    + '<h5>' + idea.body + '</h5>'
-    + ' Quality: '
-    + idea.quality
-    + '</div>'
-    + '<br>'
+    + idea.id + '"><h4>' + idea.title + '</h4>' + '<h5>' + idea.body + '</h5>'
+    + ' Quality: ' + idea.quality + '</div>' + '<br>'
     + '<button id="edit-idea" class="btn btn-info btn-xs">Edit</button>'
   );
   $('#ideas').append(newIdea)
