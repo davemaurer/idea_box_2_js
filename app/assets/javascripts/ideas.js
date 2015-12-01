@@ -11,3 +11,10 @@ function getIdeas() {
     })
 }
 
+function renderIdea(idea) {
+  appendIdea(idea);
+}
+
+function appendIdea(idea) {
+  var newIdea = $('')
+}

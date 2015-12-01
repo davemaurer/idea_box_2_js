@@ -1,17 +1,26 @@
 <div class="container">
-  <div class="row">
-    <h1>This works baby!</h1>
+  <div class="row col-sm-6 col-sm-offset-3">
+    <h1>Idea Box Rises!</h1>
   </div>
 </div>
 
-<form>
-  <div class="form-group">
-    <label for="inputName">Idea Name</label>
-    <input type="ideaName" class="form-control" id="inputName" placeholder="Name">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h3>Submit A New Idea</h3>
+      <form>
+        <div class="new-idea form-group">
+          <label for="inputName">Idea Name</label>
+          <input type="ideaName" class="form-control" id="inputName" placeholder="Name">
+        </div>
+        <div class="form-group">
+          <label for="inputBody">Idea Description</label>
+          <input type="ideaBody" class="form-control" id="inputBody" placeholder="Description">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <br>
+      <div class="ideas"></div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="inputBody">Idea Description</label>
-    <input type="ideaBody" class="form-control" id="inputBody" placeholder="Description">
-  </div>
-  <button type="submit" class="btn btn-default">Submit</button>
-</form>
+</div>
