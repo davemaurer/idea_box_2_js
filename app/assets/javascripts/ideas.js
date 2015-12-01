@@ -22,6 +22,7 @@ function renderIdea(idea) {
     + idea.quality
     + '</div>'
     + '<br>'
+    + '<button id="edit-idea" class="btn btn-info btn-xs">Edit</button>'
   );
   $('#ideas').append(newIdea)
 }
@@ -51,6 +52,28 @@ function createIdea() {
       }
     })
   })
+}
+
+function editIdea() {
+  $("#ideas").delegate("edit-idea", "click", function() {
+    var $idea = $(this).closest(".idea");
+
+    var ideaParams = {
+      idea: {
+        title: $("#idea-title").val(),
+        body: $("#idea-body").val()
+      }
+    };
+
+    $.ajax({
+      type: "PUT",
+      url: "/api/v1/ideas" + $idea.attr('data-id') + ".json",
+      data: ideaParams,
+      success: function(idea) {
+        $idea.replaceWith(idea);
+      }
+    });
+  });
 }
 
 function clearForm() {
