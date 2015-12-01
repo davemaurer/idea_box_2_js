@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe "The Ideas Controller", type: :request do
   context "API endpoint actions" do
-    let!(:idea1) { Idea.create(title: "testidea1", body: "this is the first test idea") }
-    let!(:idea2) { Idea.create(title: "testidea2", body: "this is the second test idea", quality: 1) }
-    let!(:idea3) { Idea.create(title: "testidea3", body: "this is the third test idea", quality: 2) }
+    let!(:idea1) { Idea.create!(title: "testidea1", body: "this is the first test idea") }
+    let!(:idea2) { Idea.create!(title: "testidea2", body: "this is the second test idea", quality: 1) }
+    let!(:idea3) { Idea.create!(title: "testidea3", body: "this is the third test idea", quality: 2) }
 
     let(:api_response) { JSON.parse(response.body) }
 
@@ -23,7 +23,7 @@ RSpec.describe "The Ideas Controller", type: :request do
       post '/api/v1/ideas.json', { idea: {title: "testidea4", body: "this is the fourth idea"} }
 
       expect(response.status).to eq 201 #created
-      expect(api_response.count).to eq(4)
+      expect(api_response.count).to eq(6)
       expect(Idea.last.body).to eq("this is the fourth idea")
     end
 
