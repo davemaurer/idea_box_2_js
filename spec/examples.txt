@@ -1,7 +1,7 @@
 example_id                                       | status | run_time        |
 ------------------------------------------------ | ------ | --------------- |
-./spec/features/user_creates_idea_spec.rb[1:1:1] | failed | 7.76 seconds    |
-./spec/models/idea_spec.rb[1:1:1]                | passed | 0.03057 seconds |
-./spec/models/idea_spec.rb[1:1:2]                | passed | 0.00448 seconds |
-./spec/requests/api_v1_ideas_spec.rb[1:1:1]      | passed | 0.01691 seconds |
-./spec/requests/api_v1_ideas_spec.rb[1:1:2]      | passed | 0.02948 seconds |
+./spec/features/user_creates_idea_spec.rb[1:1:1] | failed | 3.63 seconds    |
+./spec/models/idea_spec.rb[1:1:1]                | passed | 0.00407 seconds |
+./spec/models/idea_spec.rb[1:1:2]                | passed | 0.00615 seconds |
+./spec/requests/api_v1_ideas_spec.rb[1:1:1]      | passed | 0.05637 seconds |
+./spec/requests/api_v1_ideas_spec.rb[1:1:2]      | passed | 0.01878 seconds |

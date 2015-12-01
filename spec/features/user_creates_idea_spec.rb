@@ -10,8 +10,9 @@ RSpec.describe "User creates idea", type: :feature, js: true do
       click_on "Create Idea"
 
       expect(current_path).to eq(root_path) #stay on page
+      save_and_open_page
       expect(page).to have_content "uneeke werds"
-      expect(page).to have_content "swill"
+      expect(page).to have_content "fynds"
     end
   end
 end
