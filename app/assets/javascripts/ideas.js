@@ -21,7 +21,10 @@ function renderIdea(idea) {
 function createElementFromIdea(idea) {
   return $('<div class="idea" data-id="'
     + idea.id + '"><h4>' + idea.title + '</h4>' + '<h5>' + idea.body + '</h5>'
-    + ' Quality: ' + idea.quality + '<br>'
+    + '<p> Quality: ' + idea.quality
+    + '<button type="submit" id="upvote" class="btn btn-success btn-xs">Upvote</button>' + ' | '
+    + '<button type="submit" id="downvote" class="btn btn-danger btn-xs">Downvote</button>' + '<p>'
+    + '<br>'
     + '<button id="edit-idea' + idea.id + '" class="btn btn-info btn-xs">Edit</button>'
     + ' | ' + '<button id="delete-idea" class="btn btn-danger btn-xs">Delete</button>'
     + '<div id="edit" style="display: none;">'
