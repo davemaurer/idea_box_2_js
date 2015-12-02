@@ -21,11 +21,10 @@ function renderIdea(idea) {
 function createElementFromIdea(idea) {
   return $('<div class="idea" data-id="'
     + idea.id + '"><h4>' + idea.title + '</h4>' + '<h5>' + idea.body + '</h5>'
-    + '<p> Quality: ' + idea.quality
+    + '<p> Quality: ' + '<strong>' + idea.quality + '</strong>' + ' - '
     + '<button type="submit" id="upvote" class="btn btn-success btn-xs">Upvote</button>' + ' | '
     + '<button type="submit" id="downvote" class="btn btn-danger btn-xs">Downvote</button>' + '<p>'
-    + '<br>'
-    + '<button id="edit-idea' + idea.id + '" class="btn btn-info btn-xs">Edit</button>'
+    + '<br>' + '<button id="edit-idea' + idea.id + '" class="btn btn-info btn-xs">Edit</button>'
     + ' | ' + '<button id="delete-idea" class="btn btn-danger btn-xs">Delete</button>'
     + '<div id="edit" style="display: none;">'
     + '<div class="edit-form form-group">'
@@ -67,6 +66,7 @@ function createIdea() {
 
 function editIdea() {
   $('#ideas').delegate('#edit-idea', 'click', function() {
+    $('edit').slideToggle
     var $idea = $(this).closest('.idea');
 
     var ideaParams = {
