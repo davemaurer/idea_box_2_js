@@ -2,6 +2,7 @@ $(document).ready(function() {
   getIdeas();
   createIdea();
   editIdea();
+  deleteIdea();
 });
 
 function getIdeas() {
@@ -20,15 +21,15 @@ function renderIdea(idea) {
 function createElementFromIdea(idea) {
   return $('<div class="idea" data-id="'
     + idea.id + '"><h4>' + idea.title + '</h4>' + '<h5>' + idea.body + '</h5>'
-    + ' Quality: ' + idea.quality + '</div><br>'
+    + ' Quality: ' + idea.quality + '<br>'
     + '<button id="edit-idea' + idea.id + '" class="btn btn-info btn-xs">Edit</button>'
     + '<div class="edit-form form-group">'
     + '<input name="edit-title" type="text" class="form-control" id="edit-title'
     + idea.id + '" value="' + idea.title + '">'
     + '<input name="edit-body" type="textfield" class="form-control" id="edit-body'
     + idea.id + '" value="' + idea.body + '">' + '</div>'
-    + '<button type="submit" id="create-edit" class="btn btn-default">Edit Idea</button>'
-    + '<button id="delete-idea" class="btn btn-danger btn-xs">Delete</button>'
+    + '<button type="submit" id="create-edit" class="btn btn-default btn-xs">Edit Idea</button>'
+    + '<button id="delete-idea" class="btn btn-danger btn-xs">Delete</button>' + '</div>'
   );
 }
 
@@ -60,19 +61,19 @@ function createIdea() {
 }
 
 function editIdea() {
-  $("#ideas").delegate("#edit-idea", "click", function() {
-    var $idea = $(this).closest(".idea");
+  $('#ideas').delegate('#edit-idea', 'click', function() {
+    var $idea = $(this).closest('.idea');
 
     var ideaParams = {
       idea: {
-        title: $("#idea-title").val(),
-        body: $("#idea-body").val()
+        title: $('#idea-title').val(),
+        body: $('#idea-body').val()
       }
     };
 
     $.ajax({
-      type: "PUT",
-      url: "/api/v1/ideas" + $idea.attr('data-id') + ".json",
+      type: 'PUT',
+      url: '/api/v1/ideas' + $idea.attr('data-id') + '.json',
       data: ideaParams,
       success: function(idea) {
         $idea.replaceWith(idea);
@@ -81,10 +82,29 @@ function editIdea() {
   });
 }
 
+function deleteIdea() {
+  $('#ideas').delegate('#delete-idea', 'click', function() {
+    var $idea = $(this).closest('.idea');
+
+    $.ajax({
+      type: 'DELETE',
+      url: 'api/v1/ideas/' + $idea.attr('data-id') + '.json',
+      success: function() {
+        $idea.remove();
+      },
+      error: function() {
+        $idea.remove();
+      }
+    })
+  })
+}
+
 function clearForm() {
   $("#idea-title").val('');
   $("#idea-body").val('');
 }
+
+
 
 // add button to page
 // click event ==> "i'm clicked"
