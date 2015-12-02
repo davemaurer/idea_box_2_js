@@ -5,10 +5,10 @@ $(document).ready(function() {
   deleteIdea();
 });
 
-function hideEdit() {
+function hideEdit(idea) {
   $('#edit').hide();
-  $('#edit-idea').click(function() {
-    $('.edit-form').slideToggle('fast')
+  $('#edit-idea' + idea.id).click(function() {
+    $('#edit').slideToggle('fast')
   });
 }
 
@@ -23,7 +23,7 @@ function renderIdea(idea) {
   truncateIdea(idea);
   var newIdea = createElementFromIdea(idea);
   $('#ideas').prepend(newIdea);
-  hideEdit();
+  hideEdit(idea);
 }
 
 function createElementFromIdea(idea) {
@@ -40,7 +40,7 @@ function createElementFromIdea(idea) {
     + idea.id + '" value="' + idea.title + '">'
     + '<input name="edit-body" type="textfield" class="form-control" id="edit-body'
     + idea.id + '" value="' + idea.body + '">' + '</div>'
-    + '<button type="submit" id="create-edit" class="btn btn-default btn-xs">Edit Idea</button>' + '</div>'
+    + '<button type="submit" id="create-edit" class="btn btn-success btn-xs">Edit Idea</button>' + '</div>'
     + '<br>' + '</div>'
   );
 }
