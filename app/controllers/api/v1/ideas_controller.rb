@@ -10,14 +10,14 @@ class Api::V1::IdeasController < ApplicationController
   end
 
   def update
-    respond_with Idea.update!(params[:id], idea_params)
-  end
-
-  def destroy
-    respond_with Idea.destroy(params[:id])
+    respond_with @idea.update!(idea_params)
   end
 
 private
+
+  def find_idea
+    @idea = Idea.find(params[:id])
+  end
 
   def idea_params
     params.require(:idea).permit(:title, :body, :quality)
