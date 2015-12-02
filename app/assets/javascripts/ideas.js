@@ -22,7 +22,7 @@ function getIdeas() {
 function renderIdea(idea) {
   truncateIdea(idea);
   var newIdea = createElementFromIdea(idea);
-  $('#ideas').append(newIdea);
+  $('#ideas').prepend(newIdea);
   hideEdit();
 }
 
