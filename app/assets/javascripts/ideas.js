@@ -18,10 +18,17 @@ function renderIdea(idea) {
 }
 
 function createElementFromIdea(idea) {
-  return $('<div class="#idea" data-id="'
+  return $('<div class="idea" data-id="'
     + idea.id + '"><h4>' + idea.title + '</h4>' + '<h5>' + idea.body + '</h5>'
     + ' Quality: ' + idea.quality + '</div><br>'
-    + '<button id="edit-idea" class="btn btn-info btn-xs">Edit</button>'
+    + '<button id="edit-idea' + idea.id + '" class="btn btn-info btn-xs">Edit</button>'
+    + '<div class="edit-form form-group">'
+    + '<input name="edit-title" type="text" class="form-control" id="edit-title'
+    + idea.id + '" value="' + idea.title + '">'
+    + '<input name="edit-body" type="textfield" class="form-control" id="edit-body'
+    + idea.id + '" value="' + idea.body + '">' + '</div>'
+    + '<button type="submit" id="create-edit" class="btn btn-default">Edit Idea</button>'
+    + '<button id="delete-idea" class="btn btn-danger btn-xs">Delete</button>'
   );
 }
 
