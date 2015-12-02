@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require_tree .
+
+// //= is meaningless to js but important to the asset pipeline. Rails takes
+// all of the things required above and jams them into one minified file. This
+// goes into application.html.erb via <%= javascript_include_tag 'application' %>,
+// making all of your javascript available everywhere. Moving the insertion below the
+// yield will load all JS after the views are loaded

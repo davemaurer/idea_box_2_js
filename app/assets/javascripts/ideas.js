@@ -1,25 +1,28 @@
 $(document).ready(function() {
   getIdeas();
   createIdea();
+  editIdea();
 });
 
 function getIdeas() {
   $.getJSON('/api/v1/ideas')
     .then(function(ideas) {
-      ideas.forEach(function(idea) {
-        renderIdea(idea)
-      })
+      ideas.forEach(renderIdea);
     })
 }
 
 function renderIdea(idea) {
   truncateIdea(idea);
-  var newIdea = $('<div class="#ideas" data-id="'
+  var newIdea = createElementFromIdea(idea);
+  $('#ideas').append(newIdea)
+}
+
+function createElementFromIdea(idea) {
+  return $('<div class="#idea" data-id="'
     + idea.id + '"><h4>' + idea.title + '</h4>' + '<h5>' + idea.body + '</h5>'
-    + ' Quality: ' + idea.quality + '</div>' + '<br>'
+    + ' Quality: ' + idea.quality + '</div><br>'
     + '<button id="edit-idea" class="btn btn-info btn-xs">Edit</button>'
   );
-  $('#ideas').append(newIdea)
 }
 
 function truncateIdea(idea) {
@@ -50,7 +53,7 @@ function createIdea() {
 }
 
 function editIdea() {
-  $("#ideas").delegate("edit-idea", "click", function() {
+  $("#ideas").delegate("#edit-idea", "click", function() {
     var $idea = $(this).closest(".idea");
 
     var ideaParams = {
@@ -75,3 +78,10 @@ function clearForm() {
   $("#idea-title").val('');
   $("#idea-body").val('');
 }
+
+// add button to page
+// click event ==> "i'm clicked"
+// trigger slidedown
+  // fetch the text <input />
+  // (prepare) create an object with the user input <--- do this when you know how the data should be structured
+// submit button --> establish connection --> ajax (PUT)
