@@ -5,11 +5,13 @@ RSpec.describe "User creates idea", type: :feature, js: true do
     it "can create a new idea" do
       visit root_path
 
-      within("#create-idea") do
-        fill_in "idea-title", with:("uneeke werds")
-        fill_in "idea-body", with:("so mi tst fynds yt")
-        click_on "Create Idea"
+      within(".new-idea") do
+        fill_in "Title", with:("uneeke werds")
+        fill_in "Description", with:("so mi tst fynds yt")
       end
+
+      click_on "Create Idea"
+      save_and_open_page
 
       idea = Idea.find_by(title: "uneeke werds")
       expect(idea).not_to eq(nil)
