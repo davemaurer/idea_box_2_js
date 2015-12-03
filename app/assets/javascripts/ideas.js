@@ -1,8 +1,10 @@
 $(document).ready(function() {
   getIdeas();
-  createIdea();
-  deleteIdea();
-  editIdea();
+  listenForCreateIdea();
+  listenForDeleteIdea();
+  listenForEditIdea();
+  listenForUpvote();
+  listenForDownvote();
 });
 
 function getIdeas() {
@@ -32,17 +34,17 @@ function hideEdit(idea) {
 
 function createElementFromIdea(idea) {
   return $('<div class="idea" data-id="'
-    + idea.id + '"><h3>' + idea.title + '</h3>' + '<h4>' + idea.body + '</h4>'
-    + '<p> Quality: ' + '<strong>' + idea.quality + '</strong>' + ' - '
-    + '<button type="submit" id="upvote" class="btn btn-success btn-xs">Upvote</button>' + ' | '
-    + '<button type="submit" id="downvote" class="btn btn-danger btn-xs">Downvote</button>' + '<p>'
-    + '<br>' + '<button id="edit-idea" class="btn btn-info btn-xs">Edit</button>'
-    + ' | ' + '<button id="delete-idea" class="btn btn-danger btn-xs">Delete</button>'
+    + idea.id + '"><h2>Idea: ' + idea.title + '</h2>' + '<h4>Description: ' + idea.body + '</h4>'
+    + '<p> Quality: ' + '<strong class="quality-rating">' + idea.quality + '</strong>' + '</p>'
+    + '<button id="edit-idea" class="btn btn-info btn-sm">Edit</button>'
+    + ' | ' + '<button id="delete-idea" class="btn btn-warning btn-sm">Delete</button>' + ' -- '
     + '<div id="edit' + idea.id + '" class="editing">' + '<div class="edit-form form-group">'
     + '<input type="text" class="form-control" id="edit-title" value="' + idea.title + '">'
     + '<input type="textfield" class="form-control" id="edit-body" value="' + idea.body + '">' + '</div>'
-    + '<button type="submit" id="create-edit" class="btn btn-success btn-xs">Edit Idea</button>'
-    + '</div>' + '<br>' + '</div>'
+    + '<button type="submit" id="create-edit" class="btn btn-success btn-sm">Edit Idea</button>' + '</div>'
+    + '<button type="submit" id="upvote" class="btn btn-success btn-sm">Upvote</button>' + ' | '
+    + '<button type="submit" id="downvote" class="btn btn-danger btn-sm">Downvote</button>'
+    + '<br>' + '</div>'
   );
 }
 
@@ -52,7 +54,7 @@ function truncateIdea(idea) {
   }
 }
 
-function createIdea() {
+function listenForCreateIdea() {
   $('#create-idea').on('click', function() {
     var ideaParams = {
       idea: {
@@ -73,7 +75,7 @@ function createIdea() {
   })
 }
 
-function editIdea() {
+function listenForEditIdea() {
   $('#ideas').delegate('#create-edit', 'click', function() {
     var $idea = $(this).closest('.idea');
 
@@ -85,12 +87,13 @@ function editIdea() {
     };
 
     var ideaId = $idea.attr('data-id');
+
     $.ajax({
       type: 'PATCH',
       url: '/api/v1/ideas/' + ideaId + '.json',
       data: ideaParams,
       success: function() {
-        $idea.find('h3').text(ideaParams.idea.title);
+        $idea.find('h2').text(ideaParams.idea.title);
         $idea.find('h4').text(ideaParams.idea.body);
         hideEdit({
           id: ideaId
@@ -100,7 +103,38 @@ function editIdea() {
   });
 }
 
-function deleteIdea() {
+function listenForUpvote() {
+  $('#ideas').on ('click','#upvote', function() {
+    var $idea = $(this).closest('.idea');
+    var ideaId = $idea.attr('data-id');
+
+    $.ajax({
+      type: 'PATCH',
+      url: '/api/v1/ideas/' + ideaId + '/upvote.json',
+      success: function(idea) {
+        $idea.find('.quality-rating').text(idea.quality);
+      }
+    });
+  });
+}
+
+function listenForDownvote() {
+  $('#ideas').on ('click','#downvote', function() {
+    var $idea = $(this).closest('.idea');
+    var ideaId = $idea.attr('data-id');
+
+    $.ajax({
+      type: 'PATCH',
+      url: '/api/v1/ideas/' + ideaId + '/downvote.json',
+      success: function(idea) {
+        $idea.find('.quality-rating').text(idea.quality);
+      }
+    });
+  });
+}
+
+
+function listenForDeleteIdea() {
   $('#ideas').delegate('#delete-idea', 'click', function() {
     var $idea = $(this).closest('.idea');
 

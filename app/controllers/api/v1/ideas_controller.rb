@@ -20,6 +20,18 @@ class Api::V1::IdeasController < ApplicationController
     respond_with Idea.destroy(params[:id])
   end
 
+  def upvote
+    idea = Idea.find(params[:id])
+    idea.upvote
+    render json: idea
+  end
+
+  def downvote
+    idea = Idea.find(params[:id])
+    idea.downvote
+    render json: idea
+  end
+
 private
 
   def idea_params
