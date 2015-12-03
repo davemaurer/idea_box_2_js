@@ -1,32 +1,33 @@
+<br>
 <div class="container">
-  <div class="row col-sm-6 col-sm-offset-3">
-    <h1>Idea Box Rises!</h1>
+  <div class="row col-med-6">
+    <h1>Idea Box Rises! Create an Idea. Upvote. Downvote. Participate!</h1>
   </div>
-</div>
 
-<div class="container">
   <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-md-6">
       <h3>Submit A New Idea</h3>
-      <form>
-        <div class ="new-idea">
-          <div class="form-group">
-            <input name="idea-title" type="text" class="form-control" id="idea-title" placeholder="Name">
-          </div>
-          <div class="form-group">
-            <input name="idea-body" type="textfield" class="form-control" id="idea-body" placeholder="Description">
-          </div>
-          <button type="submit" id="create-idea" class="btn btn-default">Create Idea</button>
+        <div class ="new-idea form-group">
+          <input type="text" class="form-control" id="idea-title" placeholder="Your Idea Name">
+          <br>
+          <input type="textfield" class="form-control" id="idea-body" placeholder="Your Idea Description">
+          <br>
+          <button type="submit" id="create-idea" class="btn btn-default btn-success">Create Idea</button>
         </div>
-      </form>
+      <br>
+    </div>
+    <div class="col-md-6" id="search">
+      <h3>Search Ideas</h3>
+      <div class="new-idea form-group">
+        <input type="text" class="form-control" id="idea-search" placeholder="Search for an Idea">
+        <br>
+        <button type="submit" id="search-ideas" class="btn btn-default btn-info">Search</button>
+      </div>
       <br>
     </div>
   </div>
-</div>
 
-
-<div class="row">
-  <div class="col-sm-12 col-sm-offset-3">
+  <div class="row col-md-10">
     <div id="ideas"></div>
   </div>
 </div>

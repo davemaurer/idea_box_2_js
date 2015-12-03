@@ -1,35 +1,51 @@
 $(document).ready(function() {
   getIdeas();
-  createIdea();
-  editIdea();
-  deleteIdea();
+  listenForCreateIdea();
+  listenForDeleteIdea();
+  listenForEditIdea();
+  listenForUpvote();
+  listenForDownvote();
+  listenForSearchIdeas();
 });
 
 function getIdeas() {
   $.getJSON('/api/v1/ideas')
     .then(function(ideas) {
       ideas.forEach(renderIdea);
-    })
+    });
 }
 
 function renderIdea(idea) {
   truncateIdea(idea);
   var newIdea = createElementFromIdea(idea);
-  $('#ideas').append(newIdea)
+  $('#ideas').prepend(newIdea);
+  setupEdit(idea);
+}
+
+function setupEdit(idea) {
+  $('#edit' + idea.id).hide();
+  $('#edit-idea').click(function() {
+    hideEdit(idea);
+  });
+}
+
+function hideEdit(idea) {
+  $('#edit' + idea.id).slideToggle('fast')
 }
 
 function createElementFromIdea(idea) {
   return $('<div class="idea" data-id="'
-    + idea.id + '"><h4>' + idea.title + '</h4>' + '<h5>' + idea.body + '</h5>'
-    + ' Quality: ' + idea.quality + '<br>'
-    + '<button id="edit-idea' + idea.id + '" class="btn btn-info btn-xs">Edit</button>'
-    + '<div class="edit-form form-group">'
-    + '<input name="edit-title" type="text" class="form-control" id="edit-title'
-    + idea.id + '" value="' + idea.title + '">'
-    + '<input name="edit-body" type="textfield" class="form-control" id="edit-body'
-    + idea.id + '" value="' + idea.body + '">' + '</div>'
-    + '<button type="submit" id="create-edit" class="btn btn-default btn-xs">Edit Idea</button>'
-    + '<button id="delete-idea" class="btn btn-danger btn-xs">Delete</button>' + '</div>'
+    + idea.id + '"><h2>Idea: ' + idea.title + '</h2>' + '<h4>Description: ' + idea.body + '</h4>'
+    + '<p><strong>Quality:</strong> ' + '<strong class="quality-rating">' + idea.quality + '</strong>' + '</p>'
+    + '<button type="submit" id="upvote" class="btn btn-success btn-sm">Upvote</button>' + ' | '
+    + '<button type="submit" id="downvote" class="btn btn-danger btn-sm">Downvote</button>' + ' -- '
+    + '<button id="edit-idea" class="btn btn-info btn-sm">Edit</button>'
+    + ' | ' + '<button id="delete-idea" class="btn btn-warning btn-sm">Delete</button>' + '<br>'
+    + '<div id="edit' + idea.id + '" class="editing">' + 'Edit This Idea<div class="edit-form form-group">'
+    + '<input type="text" class="form-control" id="edit-title" value="' + idea.title + '">'
+    + '<input type="textfield" class="form-control" id="edit-body" value="' + idea.body + '">' + '</div>'
+    + '<button type="submit" id="create-edit" class="btn btn-info btn-sm">Edit Idea</button>' + '</div>'
+    + '<br>' + '</div>'
   );
 }
 
@@ -39,7 +55,7 @@ function truncateIdea(idea) {
   }
 }
 
-function createIdea() {
+function listenForCreateIdea() {
   $('#create-idea').on('click', function() {
     var ideaParams = {
       idea: {
@@ -60,29 +76,66 @@ function createIdea() {
   })
 }
 
-function editIdea() {
-  $('#ideas').delegate('#edit-idea', 'click', function() {
+function listenForEditIdea() {
+  $('#ideas').delegate('#create-edit', 'click', function() {
     var $idea = $(this).closest('.idea');
 
     var ideaParams = {
       idea: {
-        title: $('#idea-title').val(),
-        body: $('#idea-body').val()
+        title: $idea.find('#edit-title').val(),
+        body: $idea.find('#edit-body').val()
       }
     };
 
+    var ideaId = $idea.attr('data-id');
+
     $.ajax({
-      type: 'PUT',
-      url: '/api/v1/ideas' + $idea.attr('data-id') + '.json',
+      type: 'PATCH',
+      url: '/api/v1/ideas/' + ideaId + '.json',
       data: ideaParams,
-      success: function(idea) {
-        $idea.replaceWith(idea);
+      success: function() {
+        $idea.find('h2').text(ideaParams.idea.title);
+        $idea.find('h4').text(ideaParams.idea.body);
+        hideEdit({
+          id: ideaId
+        });
       }
     });
   });
 }
 
-function deleteIdea() {
+function listenForUpvote() {
+  $('#ideas').on ('click','#upvote', function() {
+    var $idea = $(this).closest('.idea');
+    var ideaId = $idea.attr('data-id');
+
+    $.ajax({
+      type: 'PATCH',
+      url: '/api/v1/ideas/' + ideaId + '/upvote.json',
+      success: function(idea) {
+        $idea.find('.quality-rating').text(idea.quality);
+      }
+    });
+  });
+}
+
+function listenForDownvote() {
+  $('#ideas').on ('click','#downvote', function() {
+    var $idea = $(this).closest('.idea');
+    var ideaId = $idea.attr('data-id');
+
+    $.ajax({
+      type: 'PATCH',
+      url: '/api/v1/ideas/' + ideaId + '/downvote.json',
+      success: function(idea) {
+        $idea.find('.quality-rating').text(idea.quality);
+      }
+    });
+  });
+}
+
+
+function listenForDeleteIdea() {
   $('#ideas').delegate('#delete-idea', 'click', function() {
     var $idea = $(this).closest('.idea');
 
@@ -99,16 +152,20 @@ function deleteIdea() {
   })
 }
 
+function listenForSearchIdeas() {
+  $('#idea-search').keyup(function () {
+    var searchLetters = $('#idea-search').val().toLowerCase();
+
+    $('.idea').each(function (i, idea) {
+      var title = $(idea).find('h2').text().toLowerCase();
+      var body = $(idea).find('h4').text().toLowerCase();
+      var match = (title + body).indexOf(searchLetters) >= 0;
+      $(idea).toggle(match)
+    })
+  })
+}
+
 function clearForm() {
   $("#idea-title").val('');
   $("#idea-body").val('');
 }
-
-
-
-// add button to page
-// click event ==> "i'm clicked"
-// trigger slidedown
-  // fetch the text <input />
-  // (prepare) create an object with the user input <--- do this when you know how the data should be structured
-// submit button --> establish connection --> ajax (PUT)

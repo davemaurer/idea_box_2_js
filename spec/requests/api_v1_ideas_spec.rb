@@ -14,8 +14,8 @@ RSpec.describe "The Ideas Controller", type: :request do
 
       expect(response.status).to eq(200)
       expect(api_response.count).to eq(3)
-      expect(api_response.first["body"]).to eq("this is the third test idea")
-      expect(api_response.last["body"]).to eq("this is the first test idea")
+      expect(api_response.first["body"]).to eq("this is the first test idea")
+      expect(api_response.last["body"]).to eq("this is the third test idea")
     end
 
     it "creates a new idea" do
