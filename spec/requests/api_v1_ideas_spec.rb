@@ -34,14 +34,5 @@ RSpec.describe "The Ideas Controller", type: :request do
       expect(response.status).to eq(204)
       expect(Idea.all.count).to eq(2)
     end
-
-    it "edits an idea" do
-
-      put "/api/v1/ideas/#{idea1.id}.json", { idea3: {title: "nolongertestidea3", body: "wow"} }
-
-      expect(response.status).to eq(204)
-      expect(Idea.last.title).to eq("nolongertestidea3")
-      expect(Idea.last.body).to eq("wow")
-    end
   end
 end
