@@ -35,15 +35,15 @@ function hideEdit(idea) {
 function createElementFromIdea(idea) {
   return $('<div class="idea" data-id="'
     + idea.id + '"><h2>Idea: ' + idea.title + '</h2>' + '<h4>Description: ' + idea.body + '</h4>'
-    + '<p> Quality: ' + '<strong class="quality-rating">' + idea.quality + '</strong>' + '</p>'
+    + '<p><strong>Quality:</strong> ' + '<strong class="quality-rating">' + idea.quality + '</strong>' + '</p>'
+    + '<button type="submit" id="upvote" class="btn btn-success btn-sm">Upvote</button>' + ' | '
+    + '<button type="submit" id="downvote" class="btn btn-danger btn-sm">Downvote</button>' + ' -- '
     + '<button id="edit-idea" class="btn btn-info btn-sm">Edit</button>'
-    + ' | ' + '<button id="delete-idea" class="btn btn-warning btn-sm">Delete</button>' + ' -- '
-    + '<div id="edit' + idea.id + '" class="editing">' + '<div class="edit-form form-group">'
+    + ' | ' + '<button id="delete-idea" class="btn btn-warning btn-sm">Delete</button>' + '<br>'
+    + '<div id="edit' + idea.id + '" class="editing">' + 'Edit This Idea<div class="edit-form form-group">'
     + '<input type="text" class="form-control" id="edit-title" value="' + idea.title + '">'
     + '<input type="textfield" class="form-control" id="edit-body" value="' + idea.body + '">' + '</div>'
-    + '<button type="submit" id="create-edit" class="btn btn-success btn-sm">Edit Idea</button>' + '</div>'
-    + '<button type="submit" id="upvote" class="btn btn-success btn-sm">Upvote</button>' + ' | '
-    + '<button type="submit" id="downvote" class="btn btn-danger btn-sm">Downvote</button>'
+    + '<button type="submit" id="create-edit" class="btn btn-info btn-sm">Edit Idea</button>' + '</div>'
     + '<br>' + '</div>'
   );
 }
