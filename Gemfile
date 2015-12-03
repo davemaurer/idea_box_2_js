@@ -24,6 +24,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'poltergeist'
   gem 'phantomjs'
+  gem 'simplecov', group: :test
 end
 
 group :development do

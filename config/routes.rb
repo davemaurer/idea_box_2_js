@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :ideas, only: [:index, :create, :edit, :update, :destroy] do
+      resources :ideas, only: [:index, :create, :update, :destroy] do
         member do
           patch 'upvote'
           patch 'downvote'

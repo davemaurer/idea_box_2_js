@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "User deletes an idea", type: :feature, js: true do
+RSpec.feature "User deletes an idea", js: true do
   context "when clicking delete" do
     let!(:idea1) { Idea.create!(title: "uneeker tipe ideeah", body: "thees ish kewll") }
 
