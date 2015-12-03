@@ -9,9 +9,6 @@ class Api::V1::IdeasController < ApplicationController
     respond_with :api, :v1, Idea.create(idea_params)
   end
 
-  def edit
-  end
-
   def update
     respond_with Idea.update(params[:id], idea_params)
   end

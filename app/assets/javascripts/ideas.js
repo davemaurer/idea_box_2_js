@@ -34,9 +34,9 @@ function hideEdit(idea) {
 }
 
 function createElementFromIdea(idea) {
-  return $('<div class="idea" data-id="'
-    + idea.id + '"><h2>Idea: ' + idea.title + '</h2>' + '<h4>Description: ' + idea.body + '</h4>'
-    + '<p><strong>Quality:</strong> ' + '<strong class="quality-rating">' + idea.quality + '</strong>' + '</p>'
+  return $('<div class="idea" data-id="' + idea.id + '"><h2>' + idea.title
+    + '</h2><h4>' + idea.body + '</h4>' + '<p><strong>Quality:</strong> '
+    + '<strong class="quality-rating">' + idea.quality + '</strong>' + '</p>'
     + '<button type="submit" id="upvote" class="btn btn-success btn-sm">Upvote</button>' + ' | '
     + '<button type="submit" id="downvote" class="btn btn-danger btn-sm">Downvote</button>' + ' -- '
     + '<button id="edit-idea" class="btn btn-info btn-sm">Edit</button>'
