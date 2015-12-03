@@ -5,6 +5,7 @@ $(document).ready(function() {
   listenForEditIdea();
   listenForUpvote();
   listenForDownvote();
+  listenForSearchIdeas();
 });
 
 function getIdeas() {
@@ -141,12 +142,25 @@ function listenForDeleteIdea() {
     $.ajax({
       type: 'DELETE',
       url: 'api/v1/ideas/' + $idea.attr('data-id') + '.json',
-      success: function(i) {
+      success: function() {
         $idea.remove();
       },
       error: function() {
         $idea.remove();
       }
+    })
+  })
+}
+
+function listenForSearchIdeas() {
+  $('#idea-search').keyup(function () {
+    var searchLetters = $('#idea-search').val().toLowerCase();
+
+    $('.idea').each(function (i, idea) {
+      var title = $(idea).find('h2').text().toLowerCase();
+      var body = $(idea).find('h4').text().toLowerCase();
+      var match = (title + body).indexOf(searchLetters) >= 0;
+      $(idea).toggle(match)
     })
   })
 }
