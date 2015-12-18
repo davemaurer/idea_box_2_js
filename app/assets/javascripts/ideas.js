@@ -1,3 +1,5 @@
+// feedback: multiple pages(i.e. js files) if it's over 50 lines think about splitting it.
+
 $(document).ready(function() {
   getIdeas();
   listenForCreateIdea();
@@ -133,7 +135,6 @@ function listenForDownvote() {
     });
   });
 }
-
 
 function listenForDeleteIdea() {
   $('#ideas').delegate('#delete-idea', 'click', function() {
