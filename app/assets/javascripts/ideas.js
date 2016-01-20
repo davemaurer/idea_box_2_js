@@ -1,7 +1,6 @@
 $(document).ready(function() {
   getIdeas();
   listenForCreateIdea();
-  listenForDeleteIdea();
   listenForEditIdea();
 });
 
