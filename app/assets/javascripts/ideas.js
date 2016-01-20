@@ -1,13 +1,8 @@
-// feedback: multiple pages(i.e. js files) if it's over 50 lines think about splitting it.
-
 $(document).ready(function() {
   getIdeas();
   listenForCreateIdea();
   listenForDeleteIdea();
   listenForEditIdea();
-  listenForUpvote();
-  listenForDownvote();
-  listenForSearchIdeas();
 });
 
 function getIdeas() {
@@ -104,66 +99,6 @@ function listenForEditIdea() {
       }
     });
   });
-}
-
-function listenForUpvote() {
-  $('#ideas').on ('click','#upvote', function() {
-    var $idea = $(this).closest('.idea');
-    var ideaId = $idea.attr('data-id');
-
-    $.ajax({
-      type: 'PATCH',
-      url: '/api/v1/ideas/' + ideaId + '/upvote.json',
-      success: function(idea) {
-        $idea.find('.quality-rating').text(idea.quality);
-      }
-    });
-  });
-}
-
-function listenForDownvote() {
-  $('#ideas').on ('click','#downvote', function() {
-    var $idea = $(this).closest('.idea');
-    var ideaId = $idea.attr('data-id');
-
-    $.ajax({
-      type: 'PATCH',
-      url: '/api/v1/ideas/' + ideaId + '/downvote.json',
-      success: function(idea) {
-        $idea.find('.quality-rating').text(idea.quality);
-      }
-    });
-  });
-}
-
-function listenForDeleteIdea() {
-  $('#ideas').delegate('#delete-idea', 'click', function() {
-    var $idea = $(this).closest('.idea');
-
-    $.ajax({
-      type: 'DELETE',
-      url: 'api/v1/ideas/' + $idea.attr('data-id') + '.json',
-      success: function() {
-        $idea.remove();
-      },
-      error: function() {
-        $idea.remove();
-      }
-    })
-  })
-}
-
-function listenForSearchIdeas() {
-  $('#idea-search').keyup(function () {
-    var searchLetters = $('#idea-search').val().toLowerCase();
-
-    $('.idea').each(function (i, idea) {
-      var title = $(idea).find('h2').text().toLowerCase();
-      var body = $(idea).find('h4').text().toLowerCase();
-      var match = (title + body).indexOf(searchLetters) >= 0;
-      $(idea).toggle(match)
-    })
-  })
 }
 
 function clearForm() {
